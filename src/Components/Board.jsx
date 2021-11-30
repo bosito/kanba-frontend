@@ -11,7 +11,7 @@ export function Board({columns, moveCard, addCard, addColumn}) {
       {columns.map(column => (
         <Column
           key={column.id}
-          title={column.title}
+          title={column.name}
           columnId={column.id}
           addCard={addCard}
         >

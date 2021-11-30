@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Board } from './Components/Board';
+import {getStatus} from './Services/status';
 
 let _columnId = 0;
 let _taskId = 0;
@@ -21,7 +22,12 @@ const App = () => {
   }));
 
   useEffect(() => {
-    setColumns(initialColumns);
+    const fetchStatus = async () => { 
+      const status = await getStatus();
+      setColumns(status);
+    }
+
+    fetchStatus();
   }, []);
 
   const addColumn = (title) => {
