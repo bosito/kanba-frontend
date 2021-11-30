@@ -1,13 +1,63 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body{
+  margin: 0px;
+}
+
+.Board {
+  height: 100vh;
+  padding: 3vh;
+  font-family: sans-serif;
+  white-space: nowrap;
+  background-position: 50%;
+  background-size: cover;
+}
+
+.Column {
+  display: inline-block;
+  vertical-align: top;
+  width: 225px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-right: 20px;
+  background: #ebecf0;
+  color: #303030;
+}
+
+.Column__title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.Card {
+  padding: 15px;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: move;
+  box-shadow: 0 1px 0 #091e4240;
+}
+
+.Card--spacer,
+.Card--dragging {
+  opacity: 0;
+}
+
+.TextForm__input {
+  display: block;
+  background: #f4fffd;
+  width: 100%;
+  border-radius: 3px;
+  border: none;
+  font-size: 16px;
+  padding: 7px;
+  margin-bottom: 5px;
+  opacity: 0.8;
+}
+
+.TextForm__input:focus {
+  opacity: 1;
 }
