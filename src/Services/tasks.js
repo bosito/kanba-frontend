@@ -11,3 +11,12 @@ export const addTask = async (taskObj) => {
     throw e;
   }
 }
+
+export const updateTask = async (taskObj, id) => {
+  try {
+    const tasks = await axios.put(`${BASE_URL}${RESOURCE}/${id}`, taskObj);
+    return tasks.data;
+  } catch(e) {
+    throw e;
+  }
+}

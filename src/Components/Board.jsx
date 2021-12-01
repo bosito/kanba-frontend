@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import {Column} from './Column';
 import {DraggableCard} from './Card';
 import {TextInput} from './TextInput';
+
 import BackgroundImage from '../Images/board-background.jpg';
 
 export function Board({columns, moveCard, addCard, addColumn}) {
@@ -21,6 +22,8 @@ export function Board({columns, moveCard, addCard, addColumn}) {
     setToggle(false);
     setOpenModal(modalTasks);
   }
+
+
 
   useEffect(() => {
     let modal = [];
