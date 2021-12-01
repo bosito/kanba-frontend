@@ -3,6 +3,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Board } from './Components/Board';
 import {getStatus} from './Services/status';
+import { addTask as addTaskService } from './Services/tasks';
 
 let _columnId = 0;
 let _taskId = 0;
@@ -39,13 +40,22 @@ const App = () => {
     setColumns([...columns, newColumn]);
   };
 
-  const addCard = (columnId, title) => {
-    const newCard = { id: ++_taskId, title };
-    const taskArray = columns.map((column) => column.id === columnId
-      ? { ...column, tasks: [...column.tasks, newCard] }
-      : column
-    );
-    setColumns(taskArray);
+  const addTask = async (columnId, title) => {
+    try {
+      // Construimos la nueva tarea
+      const newTask = { title, description: "", due_date: "2021-11-30", user_id: 3, status_id: columnId };
+      // Mandamos la solicitud
+      const task = await addTaskService(newTask);
+      // Agregamos la tarea que acabamos de crear en el sistema
+      const taskArray = columns.map((column) => column.id === columnId
+        ? { ...column, tasks: [...column.tasks, task] }
+        : column
+      );
+      // Actualizamos el estado
+      setColumns(taskArray);
+    } catch(error) {
+      console.log(error);
+    }
   };
 
   const moveCard = (cardId, destColumnId, destIndex) => {
@@ -87,7 +97,7 @@ const App = () => {
       <Board
         columns={columns}
         moveCard={moveCard}
-        addCard={addCard}
+        addCard={addTask}
         addColumn={addColumn}
       />
     </DndProvider>

@@ -61,3 +61,19 @@ body{
 .TextForm__input:focus {
   opacity: 1;
 }
+
+.Modal__header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.Modal__header>h2{
+  margin: 0;
+}
+
+.Modal__form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-basis: 22vh;
+}
