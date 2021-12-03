@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Board } from './Components/Board';
+import Login from './Components/Login/Login';
 import {getStatus} from './Services/status';
 import { addTask as addTaskService } from './Services/tasks';
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 let _columnId = 0;
 let _taskId = 0;
@@ -93,14 +96,17 @@ const App = () => {
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <Board
-        columns={columns}
-        moveCard={moveCard}
-        addCard={addTask}
-        addColumn={addColumn}
-      />
-    </DndProvider>
+    // <DndProvider backend={HTML5Backend}>
+    //   <Board
+    //     columns={columns}
+    //     moveCard={moveCard}
+    //     addCard={addTask}
+    //     addColumn={addColumn}
+    //   />
+    // </DndProvider>
+    <div className="container">
+      <Login />
+    </div>
   );
 }
 
