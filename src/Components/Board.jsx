@@ -3,27 +3,31 @@ import React, {useEffect} from 'react';
 import {Column} from './Column';
 import {DraggableCard} from './Card';
 import {TextInput} from './TextInput';
+import {logout} from '../Services/auth';
 
 import BackgroundImage from '../Images/board-background.jpg';
 
-export function Board({columns, moveCard, addCard, addColumn}) {
+export function Board({columns, moveCard, addCard, addColumn, setValidSession}) {
   const [modalTasks, setOpenModal] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
 
-  function openModal(i) {
+  const openModal = (i) => {
     modalTasks[i] = {open: true};
     setToggle(true);
     setOpenModal(modalTasks);
   }
 
-  function closeModal(i) {
+  const closeModal = (i) => {
     console.log("cerrando el modal");
     modalTasks[i] = {open: false};
     setToggle(false);
     setOpenModal(modalTasks);
   }
 
-
+  const handleLogout = () => {
+    logout();
+    setValidSession(false);
+  }
 
   useEffect(() => {
     let modal = [];
@@ -78,6 +82,9 @@ export function Board({columns, moveCard, addCard, addColumn}) {
       )})}
       <div className="Column">
         <TextInput onSubmit={addColumn} placeholder="Agregar una columna..." />
+      </div>
+      <div className="Logout">
+        <button onClick={handleLogout}>Cerrar Sesión</button>
       </div>
     </div>
   );

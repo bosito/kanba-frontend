@@ -3,8 +3,10 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Board } from './Components/Board';
 import Login from './Components/Login/Login';
+import Loading from './Components/Loading';
 import {getStatus} from './Services/status';
 import { addTask as addTaskService } from './Services/tasks';
+import { me } from './Services/auth';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -13,6 +15,8 @@ let _taskId = 0;
 
 const App = () => {
   const [columns, setColumns] = useState([]);
+  const [validSession, setValidSession] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   let initialColumns = ['En proceso'];
 
@@ -24,6 +28,34 @@ const App = () => {
       title: `Ejemplo de tarea ${_taskId}`,
     })),
   }));
+
+  useEffect(() => {
+    //Si tenemos un token guardado en local storage -> comprobaremos si esa sesión es valida
+    const accessToken = localStorage.getItem("access_token");
+    setLoading(true);
+
+    const validateSession = async () => {
+      try{
+        const response = await me();
+        if(response.status === 200){
+          setTimeout(() => {
+            setLoading(false);
+            setValidSession(true);
+          }, 2000);
+        }
+      }catch(error){
+        setValidSession(false);
+        setLoading(false);
+      }
+    }
+
+    if(accessToken){
+      //Comprobar si la sesión es valida
+      validateSession();
+    }else{
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchStatus = async () => { 
@@ -96,17 +128,19 @@ const App = () => {
   };
 
   return (
-    // <DndProvider backend={HTML5Backend}>
-    //   <Board
-    //     columns={columns}
-    //     moveCard={moveCard}
-    //     addCard={addTask}
-    //     addColumn={addColumn}
-    //   />
-    // </DndProvider>
-    <div className="container">
-      <Login />
-    </div>
+    loading ? ( <Loading /> ) : validSession ? 
+    (<DndProvider backend={HTML5Backend}>
+      <Board
+        columns={columns}
+        moveCard={moveCard}
+        addCard={addTask}
+        addColumn={addColumn}
+        setValidSession={setValidSession}
+      />
+    </DndProvider>) :
+    (<div className="container">
+      <Login setValidSession={setValidSession} />
+    </div> )
   );
 }
 

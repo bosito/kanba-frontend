@@ -12,3 +12,18 @@ export const signIn = async (email, password) => {
     throw e;
   }
 }
+
+export const me = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/users/me`, { headers: {
+      authorization: localStorage.getItem("access_token")
+    }});
+    return response;
+  } catch(e) {
+    throw e;
+  }
+}
+
+export const logout = () => {
+  localStorage.clear("access_token");
+}

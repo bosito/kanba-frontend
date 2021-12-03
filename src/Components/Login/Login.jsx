@@ -15,7 +15,7 @@ const required = (value) => {
   }
 };
 
-const Login = () => {
+const Login = ({setValidSession}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -39,7 +39,7 @@ const Login = () => {
     try{
       e.preventDefault();
       const response = await signIn(email, password);
-      console.log(response);
+      setValidSession(true);
     }catch(error){
       throw error;
     }
