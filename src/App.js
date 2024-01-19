@@ -6,7 +6,7 @@ import Login from './Components/Login/Login';
 import Loading from './Components/Loading';
 import {getStatus} from './Services/status';
 import { addTask as addTaskService } from './Services/tasks';
-import { me } from './Services/auth';
+import { me } from './Services/auth'; 
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
